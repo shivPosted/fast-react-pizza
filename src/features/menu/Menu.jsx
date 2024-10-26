@@ -1,7 +1,7 @@
 import { useLoaderData } from "react-router-dom";
-const baseURL = import.meta.env.VITE_API_BASE_URL;
 import { getMenu } from "../../services/apiRestaurant";
 import MenuItem from "./MenuItem";
+import { baseURL } from "../../util";
 
 function Menu() {
   const menu = useLoaderData();
@@ -18,7 +18,7 @@ function Menu() {
 }
 
 async function menuLoader() {
-  const res = await fetch(`${baseURL}/men`);
+  const res = await fetch(`${baseURL}/menu`);
   if (!res.ok) throw Error("Could not fetch data.");
   const { data } = await res.json();
   return data;

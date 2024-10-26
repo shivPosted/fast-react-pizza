@@ -3,7 +3,7 @@ import Home from "./ui/Home";
 import Menu from "./features/menu/Menu";
 import { menuLoader } from "./features/menu/Menu";
 import Createorder from "./features/order/Createorder";
-import Order from "./features/order/Order";
+import Order, { orderLoader } from "./features/order/Order";
 import Applayout from "./ui/Applayout";
 import Cart from "./features/cart/Cart";
 import Error from "./ui/Error";
@@ -11,7 +11,7 @@ import Error from "./ui/Error";
 const router = createBrowserRouter([
   {
     element: <Applayout />,
-    errorElement: <Error />,
+    errorElement: <Error />, //NOTE: will deal with error that gets bubbled up by children or the error that occurs in the whole parent component, mostly the route not matched error
     children: [
       {
         path: "/",
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         path: "/menu",
         element: <Menu />,
         loader: menuLoader,
-        errorElement: <Error />,
+        errorElement: <Error />, // NOTE: if we don't define the errorElement here the error will get bubbled up to parent, but if we define the error element here that element will get render here
       },
       {
         path: "/cart",
@@ -34,6 +34,8 @@ const router = createBrowserRouter([
       {
         path: "/order/:orderId",
         element: <Order />,
+        loader: orderLoader,
+        errorElement: <Error />,
       },
     ],
   },
