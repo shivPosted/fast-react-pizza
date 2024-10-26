@@ -9,10 +9,9 @@ function Applayout() {
 
   return (
     <div className="layout">
-      {isLoading && <Loader />}
-      {/*displaying loader when data is loading by checking the isLoading derived earlier*/}
       <Header />
-      <Outlet />
+      {/*displaying loader when data is loading by checking the isLoading derived earlier*/}
+      {isLoading ? <Loader /> : <Outlet />}
       <Cartoverview />
     </div>
   );
