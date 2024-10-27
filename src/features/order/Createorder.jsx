@@ -1,4 +1,5 @@
-import { Form, useActionData } from "react-router-dom";
+import { Form, redirect, useActionData } from "react-router-dom";
+import { createNewOrder } from "../../services/apiRestaurant";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -34,12 +35,11 @@ function Createorder() {
   const data = useActionData();
   const cart = fakeCart;
 
-  console.log(data);
   return (
     <Form method="post">
       <div>
         <label htmlFor="name">First Name</label>
-        <input name="name" type="text" id="name" required />
+        <input name="customer" type="text" id="name" required />
       </div>
       <div>
         <label htmlFor="phone">Phone Number</label>
@@ -63,7 +63,15 @@ function Createorder() {
 async function orderAction({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData); //formData returns an entry that needs to be converted to object that mekes it easier to work with it
-  return data;
+  const order = {
+    ...data,
+    priority: data.priority === "on",
+    cart: JSON.parse(data.cart),
+  };
+
+  const newOrderData = await createNewOrder(order);
+
+  return redirect(`/order/${newOrderData.id}`);
 }
 
 export { orderAction };
