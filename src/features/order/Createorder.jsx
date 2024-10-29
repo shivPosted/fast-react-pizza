@@ -1,4 +1,4 @@
-import { Form, redirect, useActionData } from "react-router-dom";
+import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createNewOrder } from "../../services/apiRestaurant";
 
 // https://uibakery.io/regex-library/phone-number
@@ -32,7 +32,11 @@ const fakeCart = [
 ];
 
 function Createorder() {
-  const data = useActionData();
+  const errorsIfAny = useActionData();
+  console.log(errorsIfAny);
+
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
   const cart = fakeCart;
 
   return (
@@ -44,6 +48,7 @@ function Createorder() {
       <div>
         <label htmlFor="phone">Phone Number</label>
         <input name="phone" type="tel" id="phone" required />
+        {errorsIfAny?.phone && <p>{errorsIfAny.phone}</p>}
       </div>
       <div>
         <label htmlFor="address">Address</label>
@@ -55,7 +60,9 @@ function Createorder() {
       </div>
 
       <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-      <button>Order Now</button>
+      <button disabled={isSubmitting}>
+        {isSubmitting ? "processing..." : "Order Now"}
+      </button>
     </Form>
   );
 }
@@ -63,15 +70,24 @@ function Createorder() {
 async function orderAction({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData); //formData returns an entry that needs to be converted to object that mekes it easier to work with it
+
+  const errorObj = {};
+  if (!isValidPhone(data.phone)) {
+    //checking if the provided mobile number is valid or not
+    errorObj.phone =
+      "Provide a Valid Mobile Number. We might need it to Contact you Later.";
+    return errorObj;
+  }
+
   const order = {
     ...data,
     priority: data.priority === "on",
     cart: JSON.parse(data.cart),
   };
 
-  const newOrderData = await createNewOrder(order);
+  const newOrderData = await createNewOrder(order); //newOrderData returned from the api after making the order
 
-  return redirect(`/order/${newOrderData.id}`);
+  return redirect(`/order/${newOrderData.id}`); //as we can not use navigate hook we will use redirect() to create a response
 }
 
 export { orderAction };
