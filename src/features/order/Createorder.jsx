@@ -43,7 +43,13 @@ function Createorder() {
     <Form method="post">
       <div>
         <label htmlFor="name">First Name</label>
-        <input name="customer" type="text" id="name" required />
+        <input
+          className="border border-stone-300 rounded-full text-sm px-4 py-2 w-full focus:outline-none focus:ring focus:ring-yellow-300 md:px-6 md:py-3 "
+          name="customer"
+          type="text"
+          id="name"
+          required
+        />
       </div>
       <div>
         <label htmlFor="phone">Phone Number</label>
@@ -55,7 +61,12 @@ function Createorder() {
         <input name="address" type="text" id="address" required />
       </div>
       <div>
-        <input name="priority" type="checkbox" id="priority" />
+        <input
+          className="w-6 h-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2"
+          name="priority"
+          type="checkbox"
+          id="priority"
+        />
         <label htmlFor="priority">Want to give your order priority?</label>
       </div>
 
