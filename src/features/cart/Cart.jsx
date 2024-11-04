@@ -1,3 +1,4 @@
+import Button from "../../ui/Button";
 import LinkButton from "../../ui/LinkButton";
 
 function Cart() {
@@ -6,6 +7,7 @@ function Cart() {
       <LinkButton to="/menu">&larr; Back to Menu</LinkButton>
       <h2>Your Pizzas Shiv</h2>
       <div>
+        <Button to="/order/new">Order Pizza</Button>
         <button>Clear Cart</button>
       </div>
     </div>
