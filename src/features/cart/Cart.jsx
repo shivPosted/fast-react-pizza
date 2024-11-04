@@ -1,14 +1,9 @@
-import { Link } from "react-router-dom";
+import LinkButton from "../../ui/LinkButton";
 
 function Cart() {
   return (
     <div>
-      <Link
-        to="/menu"
-        className="text- font-bold text-blue-500 hover:underline hover:text-blue-600"
-      >
-        &larr; Back to Menu
-      </Link>
+      <LinkButton to="/menu">&larr; Back to Menu</LinkButton>
       <h2>Your Pizzas Shiv</h2>
       <div>
         <button>Clear Cart</button>

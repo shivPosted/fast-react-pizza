@@ -14,7 +14,7 @@ function Applayout() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="overflow-auto my-6">
+        <div className="overflow-auto ">
           <main className="max-w-3xl  mx-auto ">
             <Outlet />
           </main>
