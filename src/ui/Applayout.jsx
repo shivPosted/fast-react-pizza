@@ -8,10 +8,18 @@ function Applayout() {
   const isLoading = navigation.state === "loading"; // checking if the data is loading
 
   return (
-    <div className="layout">
+    <div className="grid grid-rows-[auto_1fr_auto] h-screen ">
       <Header />
       {/*displaying loader when data is loading by checking the isLoading derived earlier*/}
-      {isLoading ? <Loader /> : <Outlet />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="overflow-auto my-6">
+          <main className="max-w-3xl  mx-auto ">
+            <Outlet />
+          </main>
+        </div>
+      )}
       <Cartoverview />
     </div>
   );

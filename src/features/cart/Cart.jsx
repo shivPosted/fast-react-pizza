@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 function Cart() {
   return (
     <div>
-      <Link to="/menu">&larr; Back to Menu</Link>
+      <Link
+        to="/menu"
+        className="text- font-bold text-blue-500 hover:underline hover:text-blue-600"
+      >
+        &larr; Back to Menu
+      </Link>
       <h2>Your Pizzas Shiv</h2>
       <div>
-        <Link to="/order/new">Order Pizzas</Link>
         <button>Clear Cart</button>
       </div>
     </div>
