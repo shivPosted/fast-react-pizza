@@ -11,15 +11,12 @@ function Applayout() {
     <div className="grid grid-rows-[auto_1fr_auto] h-screen ">
       <Header />
       {/*displaying loader when data is loading by checking the isLoading derived earlier*/}
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className="overflow-auto ">
-          <main className="max-w-3xl  mx-auto ">
-            <Outlet />
-          </main>
-        </div>
-      )}
+      {isLoading && <Loader />}
+      <div className="overflow-auto ">
+        <main className="max-w-3xl  mx-auto ">
+          <Outlet />
+        </main>
+      </div>
       <Cartoverview />
     </div>
   );
