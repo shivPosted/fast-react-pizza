@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .input {
+    @apply border border-stone-300 rounded-full text-sm px-4 py-2 w-full focus:outline-none focus:ring focus:ring-yellow-300 md:px-6 md:py-3;
+  }
+}
 /* body { */
 /*   font-family: */
 /*     system-ui, */

@@ -44,7 +44,7 @@ function Createorder() {
       <div>
         <label htmlFor="name">First Name</label>
         <input
-          className="border border-stone-300 rounded-full text-sm px-4 py-2 w-full focus:outline-none focus:ring focus:ring-yellow-300 md:px-6 md:py-3 "
+          className="input"
           name="customer"
           type="text"
           id="name"
@@ -53,12 +53,18 @@ function Createorder() {
       </div>
       <div>
         <label htmlFor="phone">Phone Number</label>
-        <input name="phone" type="tel" id="phone" required />
+        <input className="input" name="phone" type="tel" id="phone" required />
         {errorsIfAny?.phone && <p>{errorsIfAny.phone}</p>}
       </div>
       <div>
         <label htmlFor="address">Address</label>
-        <input name="address" type="text" id="address" required />
+        <input
+          className="input"
+          name="address"
+          type="text"
+          id="address"
+          required
+        />
       </div>
       <div>
         <input
