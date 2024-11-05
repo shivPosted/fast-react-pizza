@@ -45,8 +45,8 @@ function Createorder() {
       <h2 className="font-bold md:text-xl md:font-semibold mb-8">
         Ready to Order? Let's Go{" "}
       </h2>{" "}
-      <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl mb-6">
-        <label htmlFor="name" className="basis-40 ml-[0.5rem] md:ml-0">
+      <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl md:mb-6 mb-4">
+        <label htmlFor="name" className="sm:basis-40 ml-[0.5rem] md:ml-0">
           First Name
         </label>
         <input
@@ -57,15 +57,27 @@ function Createorder() {
           required
         />
       </div>
-      <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl mb-6">
-        <label htmlFor="phone" className="basis-40 ml-[0.5rem] md:ml-0">
+      <div className="flex flex-col mb-4  gap-2 md:flex-row md:items-center md:text-xl md:mb-6">
+        <label htmlFor="phone" className="sm:basis-40 ml-[0.5rem] md:ml-0">
           Phone
         </label>
-        <input className="input" name="phone" type="tel" id="phone" required />
-        {errorsIfAny?.phone && <p>{errorsIfAny.phone}</p>}
+        <div className="grow w-full">
+          <input
+            className="input"
+            name="phone"
+            type="tel"
+            id="phone"
+            required
+          />
+          {errorsIfAny?.phone && (
+            <p className="rounded-md mt-2 font-bold md:font-semibold text-xs text-red-500 bg-red-200 md:text-base px-2 py-1">
+              {errorsIfAny.phone}
+            </p>
+          )}
+        </div>
       </div>
-      <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl mb-6">
-        <label htmlFor="address" className="basis-40 ml-[0.5rem] md:ml-0">
+      <div className="flex flex-col mb-4  gap-2 md:flex-row md:items-center md:text-xl md:mb-6">
+        <label htmlFor="address" className="sm:basis-40 ml-[0.5rem] md:ml-0">
           Address
         </label>
         <input
