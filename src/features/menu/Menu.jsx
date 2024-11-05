@@ -5,14 +5,11 @@ import { baseURL } from "../../util";
 function Menu() {
   const menu = useLoaderData();
   return (
-    <div>
-      <h1>Menu</h1>
-      <ul>
-        {menu?.map((item) => (
-          <MenuItem key={item.id} item={item} />
-        ))}
-      </ul>
-    </div>
+    <ul className="divide-y divide-stone-300 my-6">
+      {menu?.map((item) => (
+        <MenuItem key={item.id} item={item} />
+      ))}
+    </ul>
   );
 }
 
@@ -20,6 +17,7 @@ async function menuLoader() {
   const res = await fetch(`${baseURL}/menu`);
   if (!res.ok) throw Error("Could not fetch data.");
   const { data } = await res.json();
+  console.log(data);
   return data;
 }
 
