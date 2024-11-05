@@ -41,9 +41,14 @@ function Createorder() {
   const cart = fakeCart;
 
   return (
-    <Form method="post">
-      <div>
-        <label htmlFor="name">First Name</label>
+    <Form method="post" className="py-6 px-4">
+      <h2 className="font-bold md:text-xl md:font-semibold mb-8">
+        Ready to Order? Let's Go{" "}
+      </h2>{" "}
+      <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl mb-6">
+        <label htmlFor="name" className="basis-40 ml-[0.5rem] md:ml-0">
+          First Name
+        </label>
         <input
           className="input"
           name="customer"
@@ -52,13 +57,17 @@ function Createorder() {
           required
         />
       </div>
-      <div>
-        <label htmlFor="phone">Phone Number</label>
+      <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl mb-6">
+        <label htmlFor="phone" className="basis-40 ml-[0.5rem] md:ml-0">
+          Phone
+        </label>
         <input className="input" name="phone" type="tel" id="phone" required />
         {errorsIfAny?.phone && <p>{errorsIfAny.phone}</p>}
       </div>
-      <div>
-        <label htmlFor="address">Address</label>
+      <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl mb-6">
+        <label htmlFor="address" className="basis-40 ml-[0.5rem] md:ml-0">
+          Address
+        </label>
         <input
           className="input"
           name="address"
@@ -67,16 +76,15 @@ function Createorder() {
           required
         />
       </div>
-      <div>
+      <div className="flex items-center gap-4 mb-12 font-semibold">
         <input
           className="w-6 h-6 accent-yellow-400 focus:outline-none focus:ring focus:ring-yellow-300 focus:ring-offset-2"
           name="priority"
           type="checkbox"
           id="priority"
         />
-        <label htmlFor="priority">Want to give your order priority?</label>
+        <label htmlFor="priority">Want us to give your order a priority?</label>
       </div>
-
       <input type="hidden" name="cart" value={JSON.stringify(cart)} />
       <Button type="primary" disabled={isSubmitting}>
         {isSubmitting ? "processing..." : "Order Now"}
