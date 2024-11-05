@@ -5,7 +5,7 @@ import { baseURL } from "../../util";
 function Menu() {
   const menu = useLoaderData();
   return (
-    <ul className="divide-y divide-stone-300 my-6">
+    <ul className="divide-y divide-stone-300 ">
       {menu?.map((item) => (
         <MenuItem key={item.id} item={item} />
       ))}

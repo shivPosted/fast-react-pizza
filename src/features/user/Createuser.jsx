@@ -16,7 +16,7 @@ function Createuser() {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      {name && <Button>Start Ordering</Button>}
+      {name && <Button type="primary">Start Ordering</Button>}
     </div>
   );
 }
