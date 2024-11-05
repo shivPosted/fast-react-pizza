@@ -6,9 +6,9 @@ function Button({ children, disabled, to, type }) {
 
   const style = {
     primary: base + " py-3 px-8",
-    secondary: base + " py-2 px-4",
+    secondary: base + " py-1.5 px-4",
     tertiary:
-      "py-2 px-4 bg-yellow-transparent rounded-full  uppercase font-bold  hover:bg-stone-300 transition-colors duration-300 focus:ring  focus:ring-offset-2 focus:ring-stone-300 focus:bg-stone-300 focus:outline-none disabled:cursor-not-allowed text-xs  md:text-base sm:text-xs",
+      "py-2 px-4 bg-yellow-transparent rounded-full  uppercase font-bold  hover:bg-stone-300 hover:text-stone-700 transition-colors duration-300 focus:ring  focus:ring-offset-2 focus:ring-stone-300 focus:bg-stone-300 focus:outline-none disabled:cursor-not-allowed text-xs  md:text-base sm:text-xs",
   };
 
   if (to) {

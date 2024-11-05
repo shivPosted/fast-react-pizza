@@ -5,7 +5,10 @@ import Username from "../features/user/Username";
 function Header() {
   return (
     <header className=" flex items-center justify-between bg-yellow-500 uppercase px-6 py-8 md:px-4 ">
-      <Link to="/" className="tracking-widest">
+      <Link
+        to="/"
+        className="tracking-widest font-semibold text-xs sm:text-base  sm:font-normal"
+      >
         --Fast React Pizza--
       </Link>
       <SearchOrder />
