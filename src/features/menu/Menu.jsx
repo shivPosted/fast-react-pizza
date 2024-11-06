@@ -18,7 +18,14 @@ async function menuLoader() {
   if (!res.ok) throw Error("Could not fetch data.");
   const { data } = await res.json();
   console.log(data);
-  return data;
+  const newData = data.map((item) => {
+    return {
+      ...item,
+      unitPrice: item.unitPrice * 50,
+    };
+  });
+  console.log(data);
+  return newData;
 }
 
 export { menuLoader };
