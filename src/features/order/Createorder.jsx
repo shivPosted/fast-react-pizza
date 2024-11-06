@@ -70,7 +70,7 @@ function Createorder() {
             required
           />
           {errorsIfAny?.phone && (
-            <p className="rounded-md mt-2 font-bold md:font-semibold text-xs text-red-500 bg-red-200 md:text-base px-2 py-1">
+            <p className="rounded-md mt-2 font-bold md:font-semibold text-xs text-red-500 bg-red-200 md:text-base px-2 py-2">
               {errorsIfAny.phone}
             </p>
           )}

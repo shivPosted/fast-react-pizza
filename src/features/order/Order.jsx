@@ -7,6 +7,7 @@ import {
   dateFormatter,
   baseURL,
 } from "../../util.js";
+import OrderItem from "./OrderItem.jsx";
 
 const order = {
   id: "ABCDEF",
@@ -60,30 +61,55 @@ function Order() {
   const deliveryIn = minutesLeft(estimatedDelivery);
 
   return (
-    <div>
-      <div>
-        <h2>Status</h2>
+    <div className="py-2 px-4 space-y-6 md:py-8 ">
+      <div className="flex flex-wrap gap-x-4 justify-between">
+        <h2 className="font-bold mb-2 md:text-xl">Order #{id} status</h2>
 
-        <div>
-          {priority && <span>Priority</span>}
-          <span>{status} order</span>
+        <div className="space-x-2 uppercase">
+          {priority && (
+            <span className="text-stone-50 bg-red-500 rounded-full py-1 px-3  text-sm">
+              Priority
+            </span>
+          )}
+          <span className="text-stone-50 bg-green-500 rounded-full py-1 px-3  text-sm">
+            {status} order
+          </span>
         </div>
       </div>
+      <ul className="divide divide-y divide-stone-300 border border-y-stone-300">
+        {order.cart.map((item) => (
+          <OrderItem item={item} key={item.pizzaId} />
+        ))}
+      </ul>
 
-      <div>
-        <p>
+      <div className="flex flex-wrap gap-x-4 justify-between bg-stone-300 p-4 rounded-sm">
+        <p className="font-medium">
           {deliveryIn >= 0
             ? `Only ${minutesLeft(estimatedDelivery)} minutes left 😃`
             : "Order should have arrived"}
         </p>
-        <p>(Estimated delivery: {dateFormatter(estimatedDelivery)})</p>
+        <p className="text-sm">
+          (Estimated delivery: {dateFormatter(estimatedDelivery)})
+        </p>
       </div>
 
-      <div>
-        <p>Price pizza: {currencyFormatter(orderPrice)}</p>
-        {priority && <p>Price priority: {currencyFormatter(priorityPrice)}</p>}
-        <p>
-          To pay on delivery: {currencyFormatter(orderPrice + priorityPrice)}
+      <div className="flex flex-col gap-x-4 justify-between bg-stone-300 p-4 rounded-sm">
+        <p className="space-x-2">
+          <span>Price pizza:</span>{" "}
+          <span> {currencyFormatter(orderPrice)}</span>
+        </p>
+        {priority && (
+          <p className="space-x-2">
+            <span>Price priority:</span>{" "}
+            <span> {currencyFormatter(priorityPrice)}</span>
+          </p>
+        )}
+        <p className="space-x-2 font-medium">
+          <span>To pay on delivery:</span>{" "}
+          <span className="font-bold">
+            {" "}
+            {currencyFormatter(orderPrice + priorityPrice)}
+          </span>
         </p>
       </div>
     </div>
