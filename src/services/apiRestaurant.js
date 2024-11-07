@@ -8,10 +8,8 @@ async function createNewOrder(newOrder) {
       "Content-Type": "application/json",
     },
   });
-  console.log(res);
   if (!res.ok) throw Error("Failed Creating your Order");
   const { data } = await res.json();
-  console.log(data);
   return data;
 }
 

@@ -4,7 +4,6 @@ import LinkButton from "./LinkButton";
 function Error() {
   //error hook will get access to errors if occured in the component where errorElement is assoiciated
   const errorObj = useRouteError();
-  console.dir(errorObj);
   return (
     <div>
       <h1>Something went wrong 😵😵</h1>

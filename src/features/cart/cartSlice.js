@@ -7,7 +7,7 @@ const initialState = {
       name: "Pizza A",
       quantity: 2,
       unitPrice: 350,
-      totalprice: 700,
+      totalPrice: 700,
     },
   ],
 };
@@ -44,6 +44,12 @@ const cartSlice = createSlice({
     },
   },
 });
+
+export const getItemTotalQuantity = (state) =>
+  state.cart.cart.reduce((accum, item) => (accum += item.quantity), 0);
+
+export const getItemsTotalPrice = (state) =>
+  state.cart.cart.reduce((accum, item) => (accum += item.totalPrice), 0);
 
 export const {
   addItem,
