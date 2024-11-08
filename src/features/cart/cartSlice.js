@@ -25,12 +25,12 @@ const cartSlice = createSlice({
     increaseQuantity(state, action) {
       const item = state.cart.find((item) => item.pizzaId === action.payload);
       item.quantity++; //this will change the quantity in the state because object are stored as reference
-      item.totalprice += item.unitPrice;
+      item.totalPrice += item.unitPrice;
     },
     decreaseQuantity(state, action) {
       const item = state.cart.find((item) => item.pizzaId === action.payload);
       item.quantity--;
-      item.totalprice -= item.unitPrice;
+      item.totalPrice -= item.unitPrice;
 
       if (item.quantity === 0) {
         // for removing the item if the quantity reach zero after decreasing

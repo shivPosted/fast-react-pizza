@@ -3,6 +3,7 @@ import Button from "../../ui/Button";
 import { currencyFormatter } from "../../util";
 import { addItem, getItemQuantity } from "../cart/cartSlice";
 import DelteItem from "../../ui/DeleteItem";
+import UpdateItemQuantity from "../../ui/UpdateItemQuantity";
 
 function MenuItem({ item }) {
   const dispatch = useDispatch();
@@ -38,7 +39,12 @@ function MenuItem({ item }) {
             {" "}
             {soldOut ? "Sold Out" : currencyFormatter(unitPrice)}
           </p>
-          {isPresentInCart && <DelteItem id={id} />}
+          {isPresentInCart && (
+            <>
+              <UpdateItemQuantity id={id} />
+              <DelteItem id={id} />
+            </>
+          )}
           {!soldOut && !isPresentInCart && (
             <Button type="secondary" clickHandler={handleAddCart}>
               Add To Cart

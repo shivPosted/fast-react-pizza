@@ -1,4 +1,5 @@
 import DelteItem from "../../ui/DeleteItem";
+import UpdateItemQuantity from "../../ui/UpdateItemQuantity";
 import { currencyFormatter } from "../../util";
 
 function CartItem({ item }) {
@@ -11,6 +12,7 @@ function CartItem({ item }) {
         <p className="text-sm font-bold md:text-base">
           {currencyFormatter(item.totalPrice)}
         </p>
+        <UpdateItemQuantity id={item.pizzaId} />
         <DelteItem id={item.pizzaId} />
       </div>
     </li>
