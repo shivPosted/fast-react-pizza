@@ -1,7 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../ui/Button";
 import LinkButton from "../../ui/LinkButton";
 import CartItem from "./CartItem";
+import { clearCart, getCart } from "./cartSlice";
+import EmptyCart from "./EmptyCart";
 
 const fakeCart = [
   {
@@ -28,16 +30,23 @@ const fakeCart = [
 ];
 
 function Cart() {
+  const dispatch = useDispatch();
   const userName = useSelector((state) => state.user.userName);
+  const cart = useSelector(getCart);
 
+  if (!cart.length) return <EmptyCart />;
+
+  function handleClearCart() {
+    dispatch(clearCart());
+  }
   return (
     <div className="mt-6 px-4">
       <LinkButton to="/menu">&larr; Back to Menu</LinkButton>
-      <h2 className="mt-2  font-bold md:text-2xl md:font-semibold ">
+      <h2 className="my-4  font-bold md:text-2xl md:font-semibold ">
         Your Pizzas {userName}
       </h2>
       <ul className="my-2">
-        {fakeCart.map((item) => (
+        {cart.map((item) => (
           <CartItem key={item.pizzaId} item={item} />
         ))}
       </ul>{" "}
@@ -45,7 +54,9 @@ function Cart() {
         <Button type="primary" to="/order/new">
           Order Pizza
         </Button>
-        <Button type="tertiary">Clear Cart</Button>
+        <Button clickHandler={handleClearCart} type="tertiary">
+          Clear Cart
+        </Button>
       </div>
     </div>
   );
