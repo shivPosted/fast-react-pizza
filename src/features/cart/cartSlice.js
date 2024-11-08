@@ -52,6 +52,8 @@ export const getItemsTotalPrice = (state) =>
   state.cart.cart.reduce((accum, item) => (accum += item.totalPrice), 0);
 
 export const getCart = (state) => state.cart.cart;
+export const getItemQuantity = (id) => (state) =>
+  state.cart.cart.find((item) => item.pizzaId === id)?.quantity ?? 0; //will return quantity if item exist and 0 if it is udefined or null
 
 export const {
   addItem,
