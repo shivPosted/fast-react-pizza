@@ -3,6 +3,9 @@ import { createNewOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { clearCart, getCart, getItemsTotalPrice } from "../cart/cartSlice";
+import EmptyCart from "../cart/EmptyCart";
+import store from "../../myStore";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -10,39 +13,21 @@ const isValidPhone = (str) =>
     //test method on regexexpression returns a boolean by checking the passesd string
     str,
   );
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
 
 function Createorder() {
+  const [givePriority, setGivePriority] = useState(false);
   const userName = useSelector((state) => state.user.userName);
+  const cart = useSelector(getCart);
+  const totalCartValue = useSelector(getItemsTotalPrice);
 
   const errorsIfAny = useActionData();
   console.log(errorsIfAny);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  const cart = fakeCart;
+  const priorityPrice = givePriority ? totalCartValue * 0.2 : 0;
+
+  if (!cart.length) return <EmptyCart />;
 
   return (
     <Form method="post" className="py-6 px-4">
@@ -99,12 +84,16 @@ function Createorder() {
           name="priority"
           type="checkbox"
           id="priority"
+          value={givePriority}
+          onChange={(e) => setGivePriority(e.target.checked)}
         />
         <label htmlFor="priority">Want us to give your order a priority?</label>
       </div>
       <input type="hidden" name="cart" value={JSON.stringify(cart)} />
       <Button type="primary" disabled={isSubmitting}>
-        {isSubmitting ? "processing..." : "Order Now"}
+        {isSubmitting
+          ? "processing..."
+          : `Order Now for ${totalCartValue + priorityPrice}`}
       </Button>
     </Form>
   );
@@ -124,11 +113,13 @@ async function orderAction({ request }) {
 
   const order = {
     ...data,
-    priority: data.priority === "on",
+    priority: data.priority === "true",
     cart: JSON.parse(data.cart),
   };
 
   const newOrderData = await createNewOrder(order); //newOrderData returned from the api after making the order
+
+  store.dispatch(clearCart()); //NOTE: use it scarcily
 
   return redirect(`/order/${newOrderData.id}`); //as we can not use navigate hook we will use redirect() to create a response
 }

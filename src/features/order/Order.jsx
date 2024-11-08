@@ -52,10 +52,9 @@ function Order() {
     id,
     status,
     priority,
-    priorityPrice,
+    priorityPrice, //NOTE: it is coming from backend
     orderPrice,
     estimatedDelivery,
-    cart,
   } = order;
 
   const deliveryIn = minutesLeft(estimatedDelivery);
