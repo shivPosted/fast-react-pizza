@@ -6,9 +6,10 @@ const initialState = {
   status: "idle",
   address: "",
   position: "",
+  error: "",
 };
 
-const fetchAddress = createAsyncThunk("cart/fetchAddress", async () => {
+const fetchAddress = createAsyncThunk("user/fetchAddress", async () => {
   const userPositionObj = await getPosition();
 
   const { latitude: lat, longitude: lng } = userPositionObj.coords;
@@ -29,8 +30,9 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAddress.rejected, (state) => {
+      .addCase(fetchAddress.rejected, (state, action) => {
         state.status = "error";
+        state.error = action.error;
       })
       .addCase(fetchAddress.fulfilled, (state, action) => {
         state.address = action.payload.address;

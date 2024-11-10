@@ -7,6 +7,7 @@ import { clearCart, getCart, getItemsTotalPrice } from "../cart/cartSlice";
 import EmptyCart from "../cart/EmptyCart";
 import store from "../../myStore";
 import { fetchAddress } from "../user/userSlice";
+import { currencyFormatter } from "../../util";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -17,7 +18,10 @@ const isValidPhone = (str) =>
 
 function Createorder() {
   const [givePriority, setGivePriority] = useState(false);
-  const userName = useSelector((state) => state.user.userName);
+  const user = useSelector((state) => state.user);
+  const isAddressLoading = user.status === "loading";
+  const userPosition = user.position;
+
   const cart = useSelector(getCart);
   const totalCartValue = useSelector(getItemsTotalPrice);
   const dispatch = useDispatch();
@@ -36,13 +40,12 @@ function Createorder() {
       <h2 className="font-bold md:text-xl md:font-semibold mb-8">
         Ready to Order? Let's Go{" "}
       </h2>{" "}
-      <button onClick={() => dispatch(fetchAddress())}>Get Addresss</button>
       <div className="flex flex-col  gap-2 md:flex-row md:items-center md:text-xl md:mb-6 mb-4">
         <label htmlFor="name" className="sm:basis-40 ml-[0.5rem] md:ml-0">
           First Name
         </label>
         <input
-          defaultValue={userName}
+          defaultValue={user.userName}
           className="input"
           name="customer"
           type="text"
@@ -73,13 +76,35 @@ function Createorder() {
         <label htmlFor="address" className="sm:basis-40 ml-[0.5rem] md:ml-0">
           Address
         </label>
-        <input
-          className="input"
-          name="address"
-          type="text"
-          id="address"
-          required
-        />
+        <span className="relative w-full">
+          <input
+            className="input"
+            name="address"
+            type="text"
+            id="address"
+            defaultValue={user.address}
+            required
+          />
+
+          {user.error && (
+            <p className="rounded-md mt-2 font-bold md:font-semibold text-xs text-red-500 bg-red-200 md:text-base px-2 py-2">
+              {user.error.message}
+            </p>
+          )}
+          <span className="absolute right-[1%] top-[0.3rem]">
+            {(userPosition.lat && userPosition.lng) || user.error ? (
+              ""
+            ) : (
+              <Button
+                disabled={isAddressLoading}
+                type="secondary"
+                clickHandler={() => dispatch(fetchAddress())}
+              >
+                {isAddressLoading ? "Fetching..." : "Get Address"}
+              </Button>
+            )}
+          </span>
+        </span>
       </div>
       <div className="flex items-center gap-4 mb-12 font-semibold">
         <input
@@ -93,10 +118,19 @@ function Createorder() {
         <label htmlFor="priority">Want us to give your order a priority?</label>
       </div>
       <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+      <input
+        type="hidden"
+        name="position"
+        value={
+          user.position.lat && user.position.lng
+            ? `${user.position.lat} ${user.position.lng}`
+            : ""
+        } //the api expects the position to be a string
+      />
       <Button type="primary" disabled={isSubmitting}>
         {isSubmitting
           ? "processing..."
-          : `Order Now for ${totalCartValue + priorityPrice}`}
+          : `Order Now for  ${currencyFormatter(totalCartValue + priorityPrice)}`}
       </Button>
     </Form>
   );
@@ -120,6 +154,7 @@ async function orderAction({ request }) {
     cart: JSON.parse(data.cart),
   };
 
+  console.log(order);
   const newOrderData = await createNewOrder(order); //newOrderData returned from the api after making the order
 
   store.dispatch(clearCart()); //NOTE: use it scarcily

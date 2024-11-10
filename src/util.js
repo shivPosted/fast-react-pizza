@@ -21,7 +21,7 @@ async function getAddress(lat, lng) {
     `https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=666574c5c4e54980148572umsdaca44`,
   );
   if (!res.ok)
-    throw new Error(`Failed getting address:${res.status} ${res.statusText}`);
+    throw new Error("Failed getting address, Add your address manually");
 
   const data = await res.json();
   const newData = {
@@ -47,7 +47,8 @@ function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       (position) => resolve(position),
-      () => reject("User denied location Permission"),
+      () =>
+        reject("User denied location Permission. Add your address manually"),
     );
   });
 }
