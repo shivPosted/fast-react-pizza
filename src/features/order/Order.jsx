@@ -14,6 +14,7 @@ import {
 } from "../../util.js";
 import OrderItem from "./OrderItem.jsx";
 import { useEffect } from "react";
+import UpdateOrder from "./UpdateOrder.jsx";
 
 // const order = {
 //   id: "ABCDEF",
@@ -58,7 +59,6 @@ function Order() {
 
   useEffect(() => {
     if (!fetcher.data && fetcher.state === "idle") fetcher.load("/menu"); //loads data associated with the '/menu' route loader ---- fetcher.state = 'idle' | 'submitting' | 'loading'
-    console.log(fetcher.data);
   }, [fetcher]);
   const {
     id,
@@ -131,6 +131,7 @@ function Order() {
           </span>
         </p>
       </div>
+      {!priority && <UpdateOrder />}
     </div>
   );
 }
@@ -140,7 +141,6 @@ async function orderLoader({ params }) {
   const res = await fetch(`${baseURL}/order/${orderId}`);
   if (!res.ok) throw new Error(`Could not find order#${orderId}`);
   const data = await res.json();
-  console.log(data);
   return data;
 }
 

@@ -8,10 +8,19 @@ async function createNewOrder(newOrder) {
       "Content-Type": "application/json",
     },
   });
-  console.log(res);
   if (!res.ok) throw Error("Failed Creating your Order");
   const { data } = await res.json();
   return data;
 }
 
-export { createNewOrder };
+async function updateOrder(id, updatedItem) {
+  const res = await fetch(`${baseURL}/order/${id}`, {
+    method: "POST",
+    body: JSON.stringify(updatedItem),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!res.ok) throw new Error("Could not update your order");
+}
+export { createNewOrder, updateOrder };

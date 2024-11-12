@@ -27,7 +27,6 @@ function Createorder() {
   const dispatch = useDispatch();
 
   const errorsIfAny = useActionData();
-  console.log(errorsIfAny);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -154,7 +153,6 @@ async function orderAction({ request }) {
     cart: JSON.parse(data.cart),
   };
 
-  console.log(order);
   const newOrderData = await createNewOrder(order); //newOrderData returned from the api after making the order
 
   store.dispatch(clearCart()); //NOTE: use it scarcily
