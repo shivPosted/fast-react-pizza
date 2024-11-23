@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAddress, getPosition } from "../../util";
 
 const initialState = {
-  userName: "Shiv",
+  userName: "",
   status: "idle",
   address: "",
   position: "",

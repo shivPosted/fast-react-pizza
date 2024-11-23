@@ -13,7 +13,6 @@ function currencyFormatter(value) {
 function minutesLeft(dateStr) {
   const d1 = new Date().getTime();
   const d2 = new Date(dateStr).getTime();
-
   return Math.trunc((d2 - d1) / 60000);
 }
 
