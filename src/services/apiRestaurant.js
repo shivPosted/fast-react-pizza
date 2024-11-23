@@ -15,7 +15,7 @@ async function createNewOrder(newOrder) {
 
 async function updateOrder(id, updatedItem) {
   const res = await fetch(`${baseURL}/order/${id}`, {
-    method: "POST",
+    method: "PATCH",
     body: JSON.stringify(updatedItem),
     headers: {
       "Content-Type": "application/json",

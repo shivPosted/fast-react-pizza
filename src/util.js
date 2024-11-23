@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
+const apiKey = import.meta.env.VITE_GEOCODE_KEY;
 
 function currencyFormatter(value) {
   return new Intl.NumberFormat("en", {
@@ -18,7 +19,7 @@ function minutesLeft(dateStr) {
 
 async function getAddress(lat, lng) {
   const res = await fetch(
-    `https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=666574c5c4e54980148572umsdaca44`,
+    `https://geocode.maps.co/reverse?lat=${lat}&lon=${lng}&api_key=${apiKey}`,
   );
   if (!res.ok)
     throw new Error("Failed getting address, Add your address manually");
